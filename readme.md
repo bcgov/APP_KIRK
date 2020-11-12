@@ -1,58 +1,38 @@
 # APP_KIRK (Keeping Information Replicated Kontinuously)
 
-## Background.
-
+## Background
 ### Current Challenges
-DataBC's currently uses FME and FME Server as the backbone for most of our 
-replications.  FME product uses individual scripts to perform replications.  
-At DataBC we try to maintain a single source / destination for each 
-replication script.  This has led to the current situation where we
-manage more than 400 individual replications scripts.
+DataBC's currently uses FME (Feature Manipulation Engine) and FME Server as the backbone for most of our replications. FME product (data integration platform for spatial data) uses individual scripts to perform replications. At DataBC we try to maintain a single source / destination for each replication script.  This has led to the current situation where we manage more than 400 individual replications scripts.
 
-From a DataBC perspective FME's advertised strength, of providing a visual programming
-UI is also its biggest weakness.  While the ability to create complex scripts 
-without having to write code can save time, the flip side is maintenance costs can
-be significant.
+From a DataBC perspective FME's advertised strength, of providing a visual programming UI is also its biggest weakness.  While the ability to create complex scripts without having to write code can save time, the flip side is maintenance costs can be significant.
 
-Currently we are in the process of upgrading the SDE / Geodatabase software used
-in the database.  The upgrade means that the 'reader' / 'writers' in our replication
-scripts need to be updated.  At a ballpark cost of 20 minutes a script multiplied by 
-more than 400 the update costs are significant.
+Currently we are in the process of upgrading the SDE (Spatial Database Engine) / Geodatabase software used in the database.  The upgrade means that the 'reader' / 'writers' in our replication scripts need to be updated.  At a ballpark cost of 20 minutes a script multiplied by  more than 400 the update costs are significant.
 
 ### How KIRK will help
-While we have many long term plans in terms of how Kirk will evolve, initially it 
-will accomplish the following:
-- Replication configurations will get stored in a database as oppose to inside 
+While we have many long term plans in terms of how Kirk will evolve, initially it will accomplish the following:
+- Replication configurations will get stored in a database as opposed to inside 
   individual replication scripts.  This will give us better transparency and reporting
   capacity in terms of what is being replicated when.
-- Kirk will re-use individual FMW's.  Most of our replications do not require the 
-  full suite of tools available in the FME product.  In fact most replication are 
+- Kirk will re-use individual FMWs (FME Workbench workspace files).  Most of our replications do not require the full suite of tools available in the FME product.  In fact most replication are 
   copies of data from one place to another, with no transformations in between.
-- Re-using FMW's will reduce the number of fmw's that need to get edited when we 
+- Re-using FMWs will reduce the number of FMWs that need to get edited when we 
   implement new features like incremental replications or changes to readers / 
   writers.   
 
  
 ## Kirk Description:
 
-**KIRK** moves away from conventional [FME](https://www.safe.com/) replication 
-configuration model where replication metadata is stored in individual scripts.
+**KIRK** moves away from conventional [FME](https://www.safe.com/) replication configuration model where replication metadata is stored in individual scripts.
 
 Typical Replication metadata is made up of:
    - Source dataset / table
    - Destination dataset / table
-   - fieldmapping between source and destination tables
+   - field mapping between source and destination tables
    - Data Transformations 
 
-APP_KIRK re-uses FMW scripts populating them at run time with parameters that 
-get retrieved from a database through a rest api.  The approach makes replication 
-information more transparent as replication metadata is stored in plain database 
-tables as oppose to embedded in individual FME scripts.  
+APP_KIRK re-uses FMW scripts populating them at run time with parameters that get retrieved from a database through a REST API.  The approach makes replication information more transparent as replication metadata is stored in plain database tables as oppose to embedded in individual FME scripts.  
 
-Re-using FMW's also makes it much easier for us to switch to different reader / 
-writers.  Also opens up the possibility to complete replications using different 
-replications tools.  Currently FME is the only known tool available for writing 
-geometries that can be consumed by both ESRI SDE and Oracle SDO.
+Re-using FMWs also makes it much easier for us to switch to different reader / writers.  Also opens up the possibility to complete replications using different replications tools.  Currently FME is the only known tool available for writing geometries that can be consumed by both ESRI SDE and Oracle SDO (Spatial Data Option).
 
 APP_KIRK is currently under development.
 
